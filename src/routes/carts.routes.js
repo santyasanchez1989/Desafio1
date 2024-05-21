@@ -40,14 +40,14 @@ router.post("/:cid/product/:pid", async (req, res) => {
 
       const existingProductIndex = cart.products.findIndex(p => p.product === Number(pid));
     if (existingProductIndex !== -1) {
-      // Si el producto ya está en el carrito, incrementar la cantidad
+      
       cart.products[existingProductIndex].quantity++;
     } else {
-      // Si el producto no está en el carrito, agregarlo con cantidad 1
+      
       cart.products.push({ product: Number(pid), quantity: 1 });
     }
 
-    // Guardar el carrito actualizado
+    
     await cartManager.updateCart(Number(cid), cart);
   
     res.status(200).json({ status: "success", cart });
