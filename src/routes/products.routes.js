@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
       page: page || 1,
       sort: {
         price: sort === "asc" ? 1 : -1,
-      },
+        },
       learn: true,
     };
 

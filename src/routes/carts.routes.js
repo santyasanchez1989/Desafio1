@@ -4,6 +4,8 @@ import productDao from "../dao/mongoDB/product.dao.js";
 
 const router = Router();
 
+//Creamos un carrito de compras
+
 router.post("/", async (req, res) => {
   try {
     const cart = await cartDao.create();
@@ -14,6 +16,22 @@ router.post("/", async (req, res) => {
     res.status(500).json({ status: "Erro", msg: "Error interno del servidor" });
   }
 });
+
+//Todos los carritos
+router.get("/", async (req, res) => {
+  try {
+    const { cid } = req.params;
+    const cart = await cartDao.getAll(cid);
+    if (!cart) return res.status(404).json({ status: "Error", msg: "Carrito no encontrado" });
+
+    res.status(200).json({ status: "success", cart });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ status: "Erro", msg: "Error interno del servidor" });
+  }
+});
+
+//Obtenemos un carrito especifico segun su ID
 
 router.get("/:cid", async (req, res) => {
   try {
@@ -27,6 +45,8 @@ router.get("/:cid", async (req, res) => {
     res.status(500).json({ status: "Erro", msg: "Error interno del servidor" });
   }
 });
+
+//Aqui agregamos un nuevo producto al carrito
 
 router.post("/:cid/product/:pid", async (req, res) => {
   try {
@@ -45,6 +65,7 @@ router.post("/:cid/product/:pid", async (req, res) => {
   }
 });
 
+//Elimina un producto de un carrito especifico segun su id
 router.delete("/:cid/product/:pid", async (req, res) => {
   try {
     const { cid, pid } = req.params;
@@ -61,6 +82,8 @@ router.delete("/:cid/product/:pid", async (req, res) => {
     res.status(500).json({ status: "Erro", msg: "Error interno del servidor" });
   }
 });
+
+//Actualiza la cantidad de un producto en el carrito especifico
 
 router.put("/:cid/product/:pid", async (req, res) => {
   try {
@@ -80,6 +103,8 @@ router.put("/:cid/product/:pid", async (req, res) => {
     res.status(500).json({ status: "Erro", msg: "Error interno del servidor" });
   }
 });
+
+//Elimina los productos del carrito especifico
 
 router.delete("/:cid", async (req, res) => {
   try {
