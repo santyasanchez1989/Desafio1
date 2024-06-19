@@ -1,3 +1,5 @@
+//Codigo de configuracion de mongoose. Con datos de mi servidor, etc.
+
 import mongoose from "mongoose";
 
 export const connectMongoDB = async () => {

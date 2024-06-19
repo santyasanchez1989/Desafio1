@@ -1,3 +1,5 @@
+//Modelo de Como debera ser nuestro carrito cuando es creado en mongoose. 
+
 import mongoose from "mongoose";
 
 const cartCollection = "cart";

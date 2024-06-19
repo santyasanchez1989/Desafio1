@@ -4,6 +4,8 @@ import productDao from "../dao/mongoDB/product.dao.js";
 
 const router = Router();
 
+//Con esta se obtiene lista de productos. Aca se pueden filtrar y paginar los resultados.
+
 router.get("/", async (req, res) => {
   try {
     const { limit, page, sort, category, status } = req.query;
@@ -13,6 +15,7 @@ router.get("/", async (req, res) => {
       page: page || 1,
       sort: {
         price: sort === "asc" ? 1 : -1,
+        price: sort === "aleat" ? 0 : 0,
         },
       learn: true,
     };
@@ -36,6 +39,9 @@ router.get("/", async (req, res) => {
   }
 });
 
+
+//Obtenemos producto especifico segun su ID. 
+
 router.get("/:pid", async (req, res) => {
   try {
     const { pid } = req.params;
@@ -48,6 +54,8 @@ router.get("/:pid", async (req, res) => {
     res.status(500).json({ status: "Erro", msg: "Error interno del servidor" });
   }
 });
+
+//Elimina producto especifico segun su ID. 
 
 router.delete("/:pid", async (req, res) => {
   try {
@@ -62,6 +70,8 @@ router.delete("/:pid", async (req, res) => {
   }
 });
 
+//Actualiza producto especifico segun su ID. 
+
 router.put("/:pid", async (req, res) => {
   try {
     const { pid } = req.params;
@@ -75,6 +85,8 @@ router.put("/:pid", async (req, res) => {
     res.status(500).json({ status: "Erro", msg: "Error interno del servidor" });
   }
 });
+
+//Crea un nuevo producto, y validamos datos con el checkP. 
 
 router.post("/", checkProductData, async (req, res) => {
   try {

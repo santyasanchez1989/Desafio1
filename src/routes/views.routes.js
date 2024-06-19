@@ -2,6 +2,11 @@ import { Router } from "express";
 import productManager from "../dao/fileSystem/productManager.js";
 import { io } from "../app.js";
 
+
+//Este archivo de programacion esta orientado a los WEBSOCKETS. 
+//Es importente para darle una al FRONT facildiad para gestionar los productos.
+//Aqui podremos agregar, eliminar y ver todos los productos. 
+
 const router = Router();
 
 router.get("/", async (req, res) => {
